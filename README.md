@@ -131,7 +131,9 @@ Reference:
 
 ---
 
-> EXTRA POINTS: WRITE HERE ANY EXTRA COMMENTS OR NOTES YOU FIND RELEVANT
+> EXTRA POINTS:
+
+- Miles is user id 95 and 'Cummerata' does not exist in the real data from https://dummyjson.com/users.
 
 ---
 

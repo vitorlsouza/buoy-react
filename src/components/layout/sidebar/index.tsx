@@ -1,4 +1,8 @@
-import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DashboardOutlined,
+  UserOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, Avatar, theme, Row, Col, Image } from "antd";
 import { AppPath } from "components";
 import { useAppNavigate } from "hooks";
@@ -36,6 +40,11 @@ export function AppSidebar({ collapsed, setCollapsed }: AppSidebarProps) {
       label: "Brand",
       icon: <UserOutlined />,
     },
+    {
+      key: AppPath.users,
+      label: "Users",
+      icon: <TeamOutlined />,
+    },
   ];
 
   const allMenuItems = [
@@ -62,8 +71,7 @@ export function AppSidebar({ collapsed, setCollapsed }: AppSidebarProps) {
       <Row
         align="middle"
         style={{ width: "100%", marginLeft: margin, height: controlHeight * 2 }}
-      >
-      </Row>
+      ></Row>
       <Row justify="space-between">
         <Col span={24}>
           <Menu
