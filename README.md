@@ -75,7 +75,11 @@ In a production environment, with a proper JWT generating API, and a proper JWT 
 
 Provide an answer below:
 
-> DELETE THIS QUOTE AND REPLACE IT WITH YOUR ANSWER
+> Yes, in production, multiple refresh calls can cause:
+>
+> - unnecessary network traffic,
+> - race conditions: resulting in invalid tokens
+> - security issues: increasing exposure of the refresh endpoint
 
 ---
 

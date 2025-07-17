@@ -21,6 +21,8 @@ export class LoginApiService extends LoginService {
     return this.retrieveFromLocalStorage();
   }
 
+  private refreshPromise: Promise<LoginResponseData> | null = null;
+
   public async getValidToken(): Promise<LoginResponseData | null> {
     const token = await this.getCurrentToken();
     if (!token || !token.access) {
@@ -32,12 +34,27 @@ export class LoginApiService extends LoginService {
       const parsedToken = this.parseJwt(token?.access);
 
       if (new Date().getTime() / 1000 > parsedToken.exp) {
-        const response: LoginResponseData = await this.fetchPost(
+        if (this.refreshPromise) {
+          await this.refreshPromise;
+          return this.retrieveFromLocalStorage();
+        }
+
+        this.refreshPromise = this.fetchPost(
           "/refresh/",
           { method: "POST" },
           { refresh: token.refresh }
-        );
-        this.storeInLocalStorage(response);
+        )
+          .then((response) => {
+            this.storeInLocalStorage(response);
+            this.refreshPromise = null;
+            return response;
+          })
+          .catch((err) => {
+            this.refreshPromise = null;
+            throw err;
+          });
+
+        await this.refreshPromise;
       }
       return this.retrieveFromLocalStorage();
     } catch (e) {
